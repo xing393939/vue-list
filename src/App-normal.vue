@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import vueList from 'components/vue-list';
+import vueList from 'components/vue-list-normal';
 
 window.COUNT = 1;
 

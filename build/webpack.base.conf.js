@@ -12,6 +12,7 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
   entry: {
+    //app_normal: './src/main_normal.js',
     app: './src/main.js'
   },
   output: {

@@ -98,7 +98,7 @@ export default {
         this.dispatchData(this)
       }
 
-      this.resetPreviewList(_from, _to);
+      this.resetPreviewList(0, _to);
 
       this.$nextTick(() => {
         let _scrollTop = this.$el.scrollTop,
@@ -121,7 +121,7 @@ export default {
           });
         }
         let _from = from, _to = to + this._below;
-        this.resetPreviewList(_from, _to);
+        this.resetPreviewList(0, _to);
         this.lineBottomHeight = (this.list.length - _to) * this.height;
         this.handleScroll();
 
