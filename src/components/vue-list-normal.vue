@@ -71,58 +71,24 @@ export default {
       if (this.lastScrollTop === null || Math.abs(_scrollTop - this.lastScrollTop) > this._max) {
           this.lastScrollTop = _scrollTop;
       } else {
-          if (this.to === this.list.length && _height - _scrollTop - _contentHeight < this.distance) {
-            this.canScroll && this.loadmore(this.from, this.to);
+
+          if (_height - _scrollTop <= this._max) {
+            this.canScroll && this.loadmore(0, this.previewList.length + this._rowsInWindow * 4);
           }
           return;
       }
 
-      // get from and to count
-      let _from = parseInt(_scrollTop / this.height) - this._above;
-      if (_from < 0) {
-          _from = 0;
-      }
-      let _to = _from + this._above + this._below + this._rowsInWindow;
-      if (_to > this.list.length) {
-          _to = this.list.length;
-      }
-      this.from = _from;
-      this.to = _to;
+      if (!this.previewList.length)
+        this.resetPreviewList(0, this.previewList.length + this._rowsInWindow * 4);
 
-      // set top height and bottom height
-      this.lineTopHeight = _from * this.height;
-      this.lineBottomHeight = (this.list.length - _to) * this.height;
-
-      // dispatch data
-      if (typeof this.dispatchData === 'function') {
-        this.dispatchData(this)
-      }
-
-      this.resetPreviewList(0, _to);
-
-      this.$nextTick(() => {
-        let _scrollTop = this.$el.scrollTop,
-            _height = this.$el.querySelectorAll('ul')[0].offsetHeight,
-            _contentHeight = this.$el.offsetHeight;
-
-        if (_to === this.list.length && _height - _scrollTop - _contentHeight < 0) {
-            this.canScroll && this.loadmore(this.from, this.to);
-        }
-      });
     },
     loadmore(from, to) {
       if (!this.canLoadmore) return;
       this.canLoadmore = false;
       // fetch mock
       setTimeout(() => {
-        for(var i = 0; i < 200; i++) {
-          this.list.push({
-            title: 'item ' + COUNT++
-          });
-        }
-        let _from = from, _to = to + this._below;
-        this.resetPreviewList(0, _to);
-        this.lineBottomHeight = (this.list.length - _to) * this.height;
+
+        this.resetPreviewList(from, to);
         this.handleScroll();
 
         this.canLoadmore = true;
@@ -132,7 +98,9 @@ export default {
       // reset previewList
       this.previewList = [];
       for (; from < to; from++) {
-          this.previewList.push(this.list[from])
+          this.previewList.push({
+            title: 'item ' + from
+          })
       }
     }
   },
