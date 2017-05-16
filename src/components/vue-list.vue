@@ -2,7 +2,25 @@
   <div class="vue-list" @scroll="handleScroll">
     <ul>
       <li class="line-top" :style="{height: lineTopHeight +'px'}"></li>
-      <li v-for="item in previewList">{{item.title}}</li>
+      <li v-for="item in previewList">
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>{{item.title}}</span>
+      </li>
       <li class="line-bottom" :style="{height: lineBottomHeight +'px'}"></li>
     </ul>
     <div class="load-more-gif">loading...</div>
